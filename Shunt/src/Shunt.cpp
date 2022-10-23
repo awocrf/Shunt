@@ -19,17 +19,17 @@ Shunt::Shunt() : nopstack(0),
 
 Shunt::~Shunt() {}
 
-float Shunt::eval_add(float a1, float a2) { return a1 + a2; }
+double Shunt::eval_add(double a1, double a2) { return a1 + a2; }
 
-float Shunt::eval_sub(float a1, float a2) { return a1 - a2; }
+double Shunt::eval_sub(double a1, double a2) { return a1 - a2; }
 
-float Shunt::eval_uminus(float a1, float a2) { return -a1; }
+double Shunt::eval_uminus(double a1, double a2) { return -a1; }
 
-float Shunt::eval_exp(float a1, float a2) { return a2 < 0 ? 0 : (a2 == 0 ? 1 : a1 * eval_exp(a1, a2 - 1)); }
+double Shunt::eval_exp(double a1, double a2) { return pow(a1, a2); }
 
-float Shunt::eval_mul(float a1, float a2) { return a1 * a2; }
+double Shunt::eval_mul(double a1, double a2) { return a1 * a2; }
 
-float Shunt::eval_div(float a1, float a2)
+double Shunt::eval_div(double a1, double a2)
 {
     if (!a2)
     {
@@ -38,7 +38,7 @@ float Shunt::eval_div(float a1, float a2)
     return a1 / a2;
 }
 
-float Shunt::eval_mod(float a1, float a2)
+double Shunt::eval_mod(double a1, double a2)
 {
     if (!a2)
     {
@@ -75,7 +75,7 @@ Shunt::operator_type *Shunt::pop_opstack()
     return opstack[--nopstack];
 }
 
-void Shunt::push_numstack(float num)
+void Shunt::push_numstack(double num)
 {
     if (nnumstack > MAXNUMSTACK - 1)
     {
@@ -84,7 +84,7 @@ void Shunt::push_numstack(float num)
     numstack[nnumstack++] = num;
 }
 
-float Shunt::pop_numstack()
+double Shunt::pop_numstack()
 {
     if (!nnumstack)
     {
@@ -96,7 +96,7 @@ float Shunt::pop_numstack()
 void Shunt::shunt_op(operator_type *op)
 {
     operator_type *pop;
-    float n1, n2;
+    double n1, n2;
 
     if (op->op == '(')
     {
@@ -167,9 +167,9 @@ int Shunt::isdigit_or_decimal(int c)
         return 0;
 }
 
-float Shunt::shuntThis(char *in_formula)
+double Shunt::shuntThis(char *in_formula)
 {
-    char expression[35];
+    char expression[400];
     nopstack = 0;
     nnumstack = 0;
 
@@ -179,7 +179,7 @@ float Shunt::shuntThis(char *in_formula)
     char *tstart = NULL;
     operator_type startop = {'X', 0, ASSOC_NONE, 0, NULL}; // Dummy operator to mark start
     operator_type *op = NULL;
-    float n1, n2;
+    double n1, n2;
     operator_type *lastop = &startop;
 
     for (expr = expression; *expr; ++expr)
