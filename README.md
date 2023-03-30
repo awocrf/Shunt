@@ -25,7 +25,7 @@ void loop() {}
 ```
 
 C++:
-```
+```cpp
 #include "shunt.hpp"
 
 int main() {
