@@ -6,8 +6,9 @@ This library is a a c++ implementation of the shunt algorithm. It is a library f
 
 ## Usage
 
-The library is header only, so you can just include the header file in your project. The library is under the class `Shunt`:
+The library is header only, so you can just include the header file in your project. The library is under the class `Shunt`.
 
+Arduino:
 ```cpp
 #include <Shunt.hpp>
 
@@ -21,6 +22,19 @@ void setup() {
 }
 
 void loop() {}
+```
+
+C++:
+```
+#include "shunt.hpp"
+
+int main() {
+    Shunt shunt;
+    char formula[] = "(8-4)*3+55";
+    float result = shunt.shuntThis(formula); // call the method
+    std::cout << result << std::endl;
+    return 0;
+}
 ```
 
 ## Supported operators
