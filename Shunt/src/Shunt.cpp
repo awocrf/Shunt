@@ -25,7 +25,7 @@ double Shunt::eval_sub(double a1, double a2) { return a1 - a2; }
 
 double Shunt::eval_uminus(double a1, double a2) { return -a1; }
 
-double Shunt::eval_exp(double a1, double a2) { return a2 < 0 ? 0 : (a2 == 0 ? 1 : a1 * eval_exp(a1, a2 - 1)); }
+double Shunt::eval_exp(double a1, double a2) { return pow(a1, a2); }
 
 double Shunt::eval_mul(double a1, double a2) { return a1 * a2; }
 
